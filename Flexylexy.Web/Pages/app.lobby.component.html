@@ -1,0 +1,18 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="ai col-md-5">
+            <button type="button" class="ai-button">Play against the computer</button>
+        </div>
+        <div class="col-md-2">
+            OR
+        </div>
+        <div *ngFor="let player of players;">
+            <div>
+                <span>{{ player.Name }}</span>
+                <button type="button" class="challenge" (click)="challenge(player)">
+                    Challenge
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

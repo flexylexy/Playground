@@ -1,0 +1,21 @@
+﻿<div class="row">
+    <div class="game-board col-md-12">
+        <div class="game-board-cell col-sm-4" (click)="play(0)">{{ board[0]?.mark }} &nbsp;</div>
+        <div class="game-board-cell col-sm-4" (click)="play(1)">{{ board[1]?.mark }} &nbsp;</div>
+        <div class="game-board-cell col-sm-4" (click)="play(2)">{{ board[2]?.mark }} &nbsp;</div>
+
+        <div class="game-board-cell col-sm-4" (click)="play(3)">{{ board[3]?.mark }} &nbsp;</div>
+        <div class="game-board-cell col-sm-4" (click)="play(4)">{{ board[4]?.mark }} &nbsp;</div>
+        <div class="game-board-cell col-sm-4" (click)="play(5)">{{ board[5]?.mark }} &nbsp;</div>
+
+        <div class="game-board-cell col-sm-4" (click)="play(6)">{{ board[6]?.mark }} &nbsp;</div>
+        <div class="game-board-cell col-sm-4" (click)="play(7)">{{ board[7]?.mark }} &nbsp;</div>
+        <div class="game-board-cell col-sm-4" (click)="play(8)">{{ board[8]?.mark }} &nbsp;</div>
+    </div>
+</div>
+
+<style>
+    .game-board-cell {
+        border: 1px solid black;
+    }
+</style>
