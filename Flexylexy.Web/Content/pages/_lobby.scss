@@ -1,0 +1,33 @@
+﻿lobby {
+    .lobby {
+        &__list {
+            border: 1px solid #000;
+            padding: 10px;
+
+            &__player {
+                &-name {
+
+                }
+
+                &-button {
+
+                }
+            }
+        }
+
+        &__chat {
+            &-room {
+                padding: 10px;
+                min-width: 200px;
+                min-height: 200px;
+                border: 1px solid #000;
+            }
+
+            &-control {
+                padding: 10px;
+                height: 100px;
+                border: 1px solid #000;
+            }
+        }
+    }
+}

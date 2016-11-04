@@ -1,18 +1,28 @@
-﻿<div class="container-fluid">
+﻿<div class="lobby container">
     <div class="row">
-        <div class="ai col-md-5">
-            <button type="button" class="ai-button">Play against the computer</button>
-        </div>
-        <div class="col-md-2">
-            OR
-        </div>
-        <div *ngFor="let player of players;">
-            <div>
-                <span>{{ player.Name }}</span>
-                <button type="button" class="challenge" (click)="challenge(player)">
-                    Challenge
-                </button>
+
+        <div class="col-lg-3 lobby__list">
+            <div *ngIf="players && players.length > 0">
+                <div *ngFor="let player of players;">
+                    <div class="lobby__list__player">
+                        <span class="lobby__list__player-name">{{ player.Name }}</span>
+                        <button type="button" class="btn btn-default btn-xs lobby__list__player-button" (click)="challenge(player)">
+                            Challenge
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!players || players.length == 0">
+                <span>No other players currently online.</span>
             </div>
         </div>
+        <div class="col-lg-9 lobby__chat">
+            <div class="lobby__chat-room">chatroom</div>
+            <div class="lobby__chat-control">
+                <input type="text" #chatEntry class="form-control"/>
+                <button type="button" (click)="sendChat(chatEntry.value)">Send</button>
+            </div>
+        </div>
+
     </div>
 </div>

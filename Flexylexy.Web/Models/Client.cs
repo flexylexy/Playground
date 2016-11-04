@@ -1,8 +1,8 @@
 ﻿namespace Flexylexy.Web.Models
 {
-    public class Player
+    public class Client : IClient
     {
         public string Name { get; set; }
-        public string ConnectionId { get; set; }
+        public string ConnectionToken { get; set; }
     }
 }

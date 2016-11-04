@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Flexylexy.Web.Models;
 
 namespace Flexylexy.Web.Models
 {
-    public static class Roster
+    public class Roster : IRoster
     {
-        private static readonly IList<Player> _connectedPlayers = new List<Player>();
-        public static IEnumerable<Player> ConnectedPlayers => _connectedPlayers;
-
-        public static void AddClient(string name, string connectionId)
+        private readonly IList<IClient> _connectedClients = new List<IClient>();
+        public IEnumerable<IClient> ConnectedClients => _connectedClients;
+        
+        public void Add(IClient client)
         {
-            _connectedPlayers.Add(new Player { Name = name, ConnectionId = connectionId });
+            _connectedClients.Add(client);
         }
 
-        public static void RemoveClient(string connectionId)
+        public void Remove(string connectionToken)
         {
-            _connectedPlayers.Remove(_connectedPlayers.FirstOrDefault(x => x.ConnectionId == connectionId));
+            _connectedClients.Remove(_connectedClients.FirstOrDefault(x => x.ConnectionToken == connectionToken));
         }
 
-        public static void ClearPlayers()
+        public void Clear()
         {
-            _connectedPlayers.Clear();
+            _connectedClients.Clear();
         }
     }
 }

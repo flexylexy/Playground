@@ -1,8 +1,13 @@
-﻿<div class="container-fluid">
+﻿<div class="container">
     <div class="row">
-        <div>
-            <input type="text" name="name" [(ngModel)]="name"/>
-            <button type="button" (click)="enter()">
+        <div class="col-lg-12 text-center ">
+            <span>Enter a name:</span>
+        </div>
+        <div class="col-lg-12 text-center">
+            <input type="text" name="name" class="name form-control center-block" [(ngModel)]="name" autofocus="autofocus" />
+        </div>
+        <div class="col-lg-12 text-center">
+            <button type="button" class="btn btn-primary margin-top" (click)="enter()">
                 Enter Lobby
             </button>
         </div>
