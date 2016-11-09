@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Flexylexy.Web.Models;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -18,23 +17,27 @@ namespace Flexylexy.Web.Hubs
         }
 
         [HubMethodName("Challenge")]
-        public void Challenge(string name, string opponentConnectionToken)
+        public void Challenge(Client client)
         {
-            var opponentConnectionId = _tokenizer.GetData(opponentConnectionToken);
-            Clients.Client(opponentConnectionId).Challenged(name, Context.ConnectionId);
+            var opponentConnectionId = _tokenizer.GetData(client.ConnectionToken);
+            var token = _tokenizer.CreateToken(Context.ConnectionId);
+
+            Clients.Client(opponentConnectionId).Challenged(_roster[token]);
         }
 
         [HubMethodName("AcceptChallenge")]
-        public void AcceptChallenge(string opponentConnectionToken)
+        public void AcceptChallenge(Client client)
         {
-            var opponentConnectionId = _tokenizer.GetData(opponentConnectionToken);
-            Clients.Client(opponentConnectionId).ChallengeAccepted(Context.ConnectionId);
+            var opponentConnectionId = _tokenizer.GetData(client.ConnectionToken);
+            var token = _tokenizer.CreateToken(Context.ConnectionId);
+
+            Clients.Client(opponentConnectionId).ChallengeAccepted(_roster[token]);
         }
 
         [HubMethodName("DeclineChallenge")]
-        public void DeclineChallenge(string opponentConnectionToken)
+        public void DeclineChallenge(Client client)
         {
-            var opponentConnectionId = _tokenizer.GetData(opponentConnectionToken);
+            var opponentConnectionId = _tokenizer.GetData(client.ConnectionToken);
             Clients.Client(opponentConnectionId).ChallengeDeclined();
         }
 
@@ -42,7 +45,7 @@ namespace Flexylexy.Web.Hubs
         public void AddClient(string name)
         {
             var token = _tokenizer.CreateToken(Context.ConnectionId);
-            _roster.Add(new Client { Name = name, ConnectionToken = token });
+            _roster.Add(token, new Client { Name = name, ConnectionToken = token });
             Clients.All.PlayersUpdated(_roster.ConnectedClients);
         }
 
@@ -58,16 +61,12 @@ namespace Flexylexy.Web.Hubs
             _roster.Clear();
         }
 
-        public void SendChat(string message, string sender, string connectionId)
+        public override Task OnConnected()
         {
-            if (String.IsNullOrEmpty(connectionId))
-            {
-                Clients.All.ReceiveChat(message, sender);
-            }
-            else
-            {
-                Clients.Client(connectionId).ReceiveChat(message, sender);
-            }
+            var token = _tokenizer.CreateToken(Context.ConnectionId);
+            Clients.Client(Context.ConnectionId).TokenGenerated(token);
+
+            return base.OnConnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)

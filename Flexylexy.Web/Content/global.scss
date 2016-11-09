@@ -4,6 +4,11 @@
 @import "pages/_lobby.scss";
 
 
+body {
+    background-color: #666;
+    color: #fff;
+}
+
 
 .margin {
     margin: $margin-size-normal;

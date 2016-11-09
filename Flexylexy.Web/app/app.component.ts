@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
+import { GameService } from "./services/game.service";
+import { UserService } from "./services/user.service";
 import { HubService } from "./services/hub.service";
-import { NameService } from "./services/name.service";
 
 @Component({
     selector: 'app',
@@ -11,12 +12,17 @@ export class AppComponent {
 
     constructor(
         private _hubService: HubService,
-        private _nameService: NameService) {
+        private _gameService: GameService,
+        private _userService: UserService
+    ) {
+        this._userService.nameObservable.subscribe(name => this.name = name);
+    }
 
-        this._nameService.nameObservable.subscribe(name => this.name = name);
+    ngOnInit() {
+        this._hubService.connect();
     }
 
     public clearPlayers() {
-        this._hubService.clearPlayers();
+        this._gameService.clearPlayers();
     }
 }

@@ -1,6 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { HubService } from "./services/hub.service";
+import { GameService } from "./services/game.service";
+import { Player } from "./types/player";
+import { Move } from "./types/move";
 
 declare var $: any;
 
@@ -14,14 +16,14 @@ export class TicTacToeComponent {
     private isMyTurn;
     private myMark;
     private opponentMark;
-    private opponentConnectionId;
+    private _opponentConnectionToken: string;
 
     public board = [];
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private hub: HubService) { }
+        private _route: ActivatedRoute,
+        private _router: Router,
+        private _gameService: GameService) { }
 
     ngOnInit() {
         this.readFromRoute();
@@ -29,9 +31,9 @@ export class TicTacToeComponent {
     }
 
     private readFromRoute() {
-        this.route.params.forEach((params: Params) => {
+        this._route.params.forEach((params: Params) => {
             let isChallenger = params["isChallenger"] == "true";
-            this.opponentConnectionId = params["opponentConnectionId"];
+            this._opponentConnectionToken = params["opponentConnectionToken"];
 
             this.isMyBoard = isChallenger;
             this.isMyTurn = isChallenger;
@@ -43,16 +45,16 @@ export class TicTacToeComponent {
     private registerForClient() {
         var self = this;
 
-        this.hub.opponentPlay.subscribe((data) => {
-            if (data.opponentConnectionId != self.opponentConnectionId) return;
+        this._gameService.opponentPlay.subscribe((move: Move) => {
+            if (move.Player.ConnectionToken != self._opponentConnectionToken) return;
 
             if (self.isMyTurn) return;
 
-            if (!self.board[data.position]) {
-                self.board[data.position] = self.opponentMark;
+            if (!self.board[move.Position]) {
+                self.board[move.Position] = self.opponentMark;
                 if (self.isOpponentWin()) {
                     alert("You lost.");
-                    this.router.navigate(['\lobby']);
+                    this._router.navigate(['\lobby']);
                 }
             }
 
@@ -65,11 +67,17 @@ export class TicTacToeComponent {
 
         if (!this.board[position]) {
             this.board[position] = this.myMark;
-            this.hub.play(position, this.opponentConnectionId);
+
+            var move = new Move();
+            move.Position = position;
+            move.Player = new Player();
+            move.Player.ConnectionToken = this._opponentConnectionToken;
+            
+            this._gameService.play(move);
 
             if (this.isMyWin()) {
                 alert("You win!");
-                this.router.navigate(['\lobby']);
+                this._router.navigate(['\lobby']);
             }
         }
 

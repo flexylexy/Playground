@@ -9,7 +9,9 @@ import { LobbyComponent }  from './app.lobby.component';
 import { TicTacToeComponent } from "./app.tictactoe.component";
 
 import { HubService } from "./services/hub.service";
-import { NameService } from "./services/name.service";
+import { UserService } from "./services/user.service";
+import { GameService } from "./services/game.service";
+import { ChatService } from "./services/chat.service";
 
 @NgModule({
     imports: [
@@ -30,7 +32,9 @@ import { NameService } from "./services/name.service";
     ],
     providers: [
         HubService,
-        NameService
+        UserService,
+        GameService,
+        ChatService
     ],
   bootstrap: [ AppComponent ]
 })
