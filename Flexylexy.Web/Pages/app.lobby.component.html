@@ -17,7 +17,11 @@
             </div>
         </div>
         <div class="col-lg-9 lobby__chat">
-            <div class="lobby__chat-room">chatroom</div>
+            <div class="lobby__chat-room">
+                <div *ngFor="let message of chatroom.slice().reverse();">
+                    <span>{{ message }}</span><br />
+                </div>
+            </div>
             <div class="lobby__chat-control">
                 <input type="text" #chatEntry class="form-control"/>
                 <button type="button" (click)="sendChat(chatEntry.value)">Send</button>

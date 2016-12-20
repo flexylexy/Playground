@@ -2,5 +2,5 @@
 
 export class Move {
     public Position: number;
-    public Player: Player;
+    public ConnectionToken: string;
 }

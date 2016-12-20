@@ -1,0 +1,63 @@
+﻿@import "_variables.scss";
+
+// margins
+
+.margin {
+    margin: $margin-size-normal;
+}
+
+.margin-top {
+    margin-top: $margin-size-normal;
+}
+
+.margin-bottom {
+    margin-bottom: $margin-size-normal;
+}
+
+.margin-left {
+    margin-left: $margin-size-normal;
+}
+
+.margin-right {
+    margin-right: $margin-size-normal;
+}
+
+
+// paddings
+
+.padding {
+    padding: $padding-size-normal;
+}
+
+.padding-top {
+    padding-top: $padding-size-normal;
+}
+
+.padding-bottom {
+    padding-bottom: $padding-size-normal;
+}
+
+.padding-left {
+    padding-left: $padding-size-normal;
+}
+
+.padding-right {
+    padding-right: $padding-size-normal;
+}
+
+
+// floats
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float:left;
+}
+
+.clearfix {
+    height: 0;
+    line-height: 0;
+    clear: both;
+}

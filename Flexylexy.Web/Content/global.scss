@@ -1,58 +1,15 @@
 ﻿@import "_variables.scss";
+@import "_helpers.scss";
 
 @import "pages/_start.scss";
 @import "pages/_lobby.scss";
-
+@import "pages/_tictactoe.scss";
 
 body {
     background-color: #666;
     color: #fff;
+    font-family: "Montserrat", sans-serif;
 }
-
-
-.margin {
-    margin: $margin-size-normal;
-}
-
-.margin-top {
-    margin-top: $margin-size-normal;
-}
-
-.margin-bottom {
-    margin-bottom: $margin-size-normal;
-}
-
-.margin-left {
-    margin-left: $margin-size-normal;
-}
-
-.margin-right {
-    margin-right: $margin-size-normal;
-}
-
-
-
-.padding {
-    padding: $padding-size-normal;
-}
-
-.padding-top {
-    padding-top: $padding-size-normal;
-}
-
-.padding-bottom {
-    padding-bottom: $padding-size-normal;
-}
-
-.padding-left {
-    padding-left: $padding-size-normal;
-}
-
-.padding-right {
-    padding-right: $padding-size-normal;
-}
-
-
 
 input[type=text] {
     min-width: 200px;

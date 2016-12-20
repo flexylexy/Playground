@@ -1,0 +1,50 @@
+﻿tictactoe {
+    .game-board {
+        &__cell {
+            border-collapse: collapse;
+            font-size: 40px;
+            text-align: center;
+
+            // top
+            &.top-left {
+                border: 1px solid #fff;
+                border-top-left-radius: 10px;
+            }
+            &.top {
+                border-top: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+            }
+            &.top-right {
+                border: 1px solid #fff; 
+                border-top-right-radius: 10px; 
+            }
+
+            // middle
+            &.mid-left {
+                border-left: 1px solid #fff;
+                border-right: 1px solid #fff;
+            }
+            &.mid {
+
+            }
+            &.mid-right {
+                border-right: 1px solid #fff;
+                border-left: 1px solid #fff;
+            }
+
+            // bottom
+            &.bot-left {
+                border: 1px solid #fff;  
+                border-bottom-left-radius: 10px;
+            }
+            &.bot {
+                border-bottom: 1px solid #fff;
+                border-top: 1px solid #fff;
+            }
+            &.bot-right {
+                border: 1px solid #fff;
+                border-bottom-right-radius: 10px;
+            }
+        }
+    }
+}

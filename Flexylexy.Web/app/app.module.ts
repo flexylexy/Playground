@@ -17,7 +17,7 @@ import { ChatService } from "./services/chat.service";
     imports: [
         BrowserModule,
         RouterModule.forRoot([
-            { path: 'tictactoe/:opponentConnectionId/:isChallenger', component: TicTacToeComponent },
+            { path: 'tictactoe/:opponentConnectionToken/:isChallenger', component: TicTacToeComponent },
             { path: "lobby", component: LobbyComponent },
             { path: '', component: StartComponent },
             //{ path: '**', component: PageNotFoundComponent }

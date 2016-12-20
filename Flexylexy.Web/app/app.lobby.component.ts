@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GameService } from "./services/game.service";
 import { UserService } from "./services/user.service";
+import { ChatService } from "./services/chat.service";
 
 declare var $: any;
 
@@ -13,10 +14,13 @@ export class LobbyComponent {
     public players;
     private subscriptions = [];
 
+    public chatroom: string;
+
     constructor(
         private router: Router,
         private _gameService: GameService,
-        private _userService: UserService) { }
+        private _userService: UserService,
+        private _chatService: ChatService) { }
 
     ngOnInit() {
         this.subscribeToEvents();
@@ -50,10 +54,19 @@ export class LobbyComponent {
 
         subscription = this._gameService.challengeDeclined.subscribe(() => alert("Challenge declined."));
         this.subscriptions.push(subscription);
+
+        subscription = this._chatService.receivedChat.subscribe(x => {
+            this.chatroom = x.sender.Name + ": " + x.message + "<br/>" + this.chatroom;
+        });
+        this.subscriptions.push(subscription);
     }
 
     public challenge(player) {
         this._gameService.challenge(player);
+    }
+
+    public sendChat(message) {
+        this._chatService.sendChat(message);
     }
 
     ngOnDestroy() {

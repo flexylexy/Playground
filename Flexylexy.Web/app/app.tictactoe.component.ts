@@ -37,8 +37,8 @@ export class TicTacToeComponent {
 
             this.isMyBoard = isChallenger;
             this.isMyTurn = isChallenger;
-            this.myMark = { value: 1, mark: isChallenger ? "X" : "O" };
-            this.opponentMark = { value: 4, mark: isChallenger ? "O" : "X" };
+            this.myMark = { value: 1, mark: isChallenger ? "✖" : "O" };
+            this.opponentMark = { value: 4, mark: isChallenger ? "O" : "✖" };
         });
     }
 
@@ -46,15 +46,17 @@ export class TicTacToeComponent {
         var self = this;
 
         this._gameService.opponentPlay.subscribe((move: Move) => {
-            if (move.Player.ConnectionToken != self._opponentConnectionToken) return;
+            if (move.ConnectionToken != self._opponentConnectionToken) return;
 
             if (self.isMyTurn) return;
 
             if (!self.board[move.Position]) {
                 self.board[move.Position] = self.opponentMark;
                 if (self.isOpponentWin()) {
-                    alert("You lost.");
-                    this._router.navigate(['\lobby']);
+                    setTimeout(() => {
+                        alert("You lost.");
+                        self._router.navigate(['\lobby']);
+                    }, 1);
                 }
             }
 
@@ -70,14 +72,15 @@ export class TicTacToeComponent {
 
             var move = new Move();
             move.Position = position;
-            move.Player = new Player();
-            move.Player.ConnectionToken = this._opponentConnectionToken;
+            move.ConnectionToken = this._opponentConnectionToken;
             
             this._gameService.play(move);
-
             if (this.isMyWin()) {
-                alert("You win!");
-                this._router.navigate(['\lobby']);
+
+                setTimeout(() => {
+                    alert("You win!");
+                    this._router.navigate(['\lobby']);
+                }, 1);
             }
         }
 

@@ -23,6 +23,7 @@ namespace Flexylexy.Web
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 
             var config = new HubConfiguration();
+
             GlobalHost.DependencyResolver.Register(typeof(IHubActivator), () => new SimpleInjectorHubActivator(container));
             GlobalHost.DependencyResolver.Register(typeof(DiHubDispatcher), () => new DiHubDispatcher(config, container));
             //GlobalHost.HubPipeline.RequireAuthentication(); //if required otherwise comment out
@@ -33,7 +34,7 @@ namespace Flexylexy.Web
 
             InjectionRegistrar.Register(container);
 
-            var resolver = new SignalRDependencyResolver(container);
+            //var resolver = new SignalRDependencyResolver(container);
 
             //container.Verify();
 

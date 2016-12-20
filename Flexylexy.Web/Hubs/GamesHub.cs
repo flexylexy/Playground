@@ -5,6 +5,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Flexylexy.Web.Hubs
 {
+    [HubName("GamesHub")]
     public partial class GamesHub : Hub
     {
         private readonly IRoster _roster;
@@ -22,7 +23,7 @@ namespace Flexylexy.Web.Hubs
             var opponentConnectionId = _tokenizer.GetData(client.ConnectionToken);
             var token = _tokenizer.CreateToken(Context.ConnectionId);
 
-            Clients.Client(opponentConnectionId).Challenged(_roster[token]);
+            Clients.Client(opponentConnectionId).Challenged(_roster.ByToken(token));
         }
 
         [HubMethodName("AcceptChallenge")]
@@ -31,7 +32,7 @@ namespace Flexylexy.Web.Hubs
             var opponentConnectionId = _tokenizer.GetData(client.ConnectionToken);
             var token = _tokenizer.CreateToken(Context.ConnectionId);
 
-            Clients.Client(opponentConnectionId).ChallengeAccepted(_roster[token]);
+            Clients.Client(opponentConnectionId).ChallengeAccepted(_roster.ByToken(token));
         }
 
         [HubMethodName("DeclineChallenge")]
@@ -45,7 +46,7 @@ namespace Flexylexy.Web.Hubs
         public void AddClient(string name)
         {
             var token = _tokenizer.CreateToken(Context.ConnectionId);
-            _roster.Add(token, new Client { Name = name, ConnectionToken = token });
+            _roster.Add(Context.ConnectionId, new Client { Name = name, ConnectionToken = token });
             Clients.All.PlayersUpdated(_roster.ConnectedClients);
         }
 
@@ -71,8 +72,7 @@ namespace Flexylexy.Web.Hubs
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            var token = _tokenizer.CreateToken(Context.ConnectionId);
-            _roster.Remove(token);
+            _roster.RemoveByConnectionId(Context.ConnectionId);
             Clients.All.PlayersUpdated(_roster.ConnectedClients);
 
             return base.OnDisconnected(stopCalled);

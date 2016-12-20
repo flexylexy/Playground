@@ -17,7 +17,15 @@ export class StartComponent {
         private router: Router) { }
 
     public enter() {
-        this._userService.name = this.name;
-        this.router.navigate(["/lobby"]);
+        if (this.name) {
+            this._userService.name = this.name;
+            this.router.navigate(["/lobby"]);
+        }
+    }
+
+    public onKeyPress(event) {
+        if (event.keyCode == 13) {
+            this.enter();
+        }
     }
 }

@@ -2,19 +2,15 @@
 
 namespace Flexylexy.Web.Models
 {
-    //public interface IRoster
-    //{
-    //    IEnumerable<IClient> ConnectedClients { get; }
-
-    //    void Add(IClient client);
-
-    //    void Remove(string connectionToken);
-
-    //    void Clear();
-    //}
-
-    public interface IRoster : IDictionary<string, IClient>
+    public interface IRoster
     {
         IEnumerable<IClient> ConnectedClients { get; }
+        IClient ByConnectionId(string connectionId);
+        IClient ByToken(string token);
+        void Add(string connectionId, IClient client);
+        void Remove(IClient client);
+        void RemoveByConnectionId(string connectiondId);
+        void RemoveByToken(string token);
+        void Clear();
     }
 }

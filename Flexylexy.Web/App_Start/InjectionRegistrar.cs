@@ -9,7 +9,7 @@ namespace Flexylexy.Web
         public static void Register(Container container)
         {
             container.Register<IRoster, Roster>(Lifestyle.Singleton);
-            container.Register<ITokenizer, Tokenizer>(Lifestyle.Scoped);
+            container.Register<ITokenizer, Tokenizer>(Lifestyle.Singleton);
             container.Register<IClient, Client>(Lifestyle.Scoped);
 
             container.Register(() =>
@@ -21,8 +21,9 @@ namespace Flexylexy.Web
 
             container.Register(() =>
             {
+                var roster = (IRoster)container.GetInstance(typeof(IRoster));
                 var tokenizer = (ITokenizer)container.GetInstance(typeof(ITokenizer));
-                return new ChatHub(tokenizer);
+                return new ChatHub(roster, tokenizer);
             }, Lifestyle.Scoped);
         }
     }

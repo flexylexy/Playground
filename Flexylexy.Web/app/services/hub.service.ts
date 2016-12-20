@@ -12,6 +12,7 @@ export class HubService {
     constructor() {
         //this._connection = $.hubConnection("http://localhost:53723/signalr/");
         this._connection = $.hubConnection("http://flexylexy.web/signalr/");
+        this._connection.logging = true;
     }
 
     public onConnect(callback: Function) {

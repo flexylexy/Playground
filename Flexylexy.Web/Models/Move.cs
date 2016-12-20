@@ -2,7 +2,7 @@
 {
     public class Move
     {
-        public string ConnectionToken { get; set; }
         public int Position { get; set; }
+        public string ConnectionToken { get; set; }
     }
 }
